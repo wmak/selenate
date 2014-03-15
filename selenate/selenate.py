@@ -43,7 +43,8 @@ class Selenate():
     takes more than timeout seconds '''
     def wait_for(self, locator, timeout=10):
         w = WebDriverWait(self.driver, timeout)
-        w.until(lambda driver: self.driver.find_element_by_locator(locator).is_displayed())
+        w.until(lambda driver: 
+                self.driver.find_element_by_locator(locator).is_displayed())
 
     ''' click on an element identified by locator on the page '''
     def click(self, locator):
@@ -55,7 +56,4 @@ class Selenate():
 
     ''' exit the browser '''
     def quit(self):
-        try:
-            self.driver.quit()
-        except:
-            print "force quitted"
+        self.driver.quit()
