@@ -4,6 +4,8 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.proxy import *
 from selenium.webdriver.common.keys import Keys
+from .exceptions import StartSeleniumError
+from urllib2 import URLError
 
 class Selenate():
     ''' Initiate a Selenate Object which is secretly a selenium object, A proxy
@@ -19,7 +21,10 @@ class Selenate():
             })
             caps = webdriver.DesiredCapabilities.FIREFOX
             proxy.add_to_capabilities(caps)
-            self.driver = webdriver.Remote(desired_capabilities=caps)
+            try:
+                self.driver = webdriver.Remote(desired_capabilities=caps)
+            except URLError:
+                raise StartSeleniumError
 
     ''' find an element by a variety of locators, using the format
     "type=locator" (ie "id=some_identifier") ''' 
