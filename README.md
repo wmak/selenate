@@ -1,4 +1,4 @@
 Selenate
 ========
 
-Web Automation made easy, build around Selenium
+Web Automation made easy, built around Selenium
