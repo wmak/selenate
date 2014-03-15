@@ -5,7 +5,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.proxy import *
 from selenium.webdriver.common.keys import Keys
 
-class Selenate(object):
+class Selenate():
     ''' Initiate a Selenate Object which is secretly a selenium object, A proxy
     can be supplied if so desired otherwise will run locally. Also unless 
     specified Selenate will be a firefox browser.'''
