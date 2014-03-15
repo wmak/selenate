@@ -11,3 +11,15 @@ class SelenateTest(unittest.TestCase):
         self.assertTrue(message)
         self.assertEqual(message, "Please start the selenium server")
 
+    def test_quit_a_closed_browser(self):
+        message = ""
+        driver = Selenate()
+        driver.get("http://www.github.com/wmak/Selenate")
+        driver.quit()
+        try:
+            driver.quit()
+        except Exception as e:
+            message = e.msg
+        self.assertTrue(message)
+        self.assertEqual(message, 
+                "The browser died before you could complete that action")

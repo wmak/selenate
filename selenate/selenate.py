@@ -4,7 +4,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.proxy import *
 from selenium.webdriver.common.keys import Keys
-from .exceptions import StartSeleniumError
+from .exceptions import StartSeleniumError, BrowserDeathError
 from urllib2 import URLError
 
 class Selenate():
@@ -61,4 +61,7 @@ class Selenate():
 
     ''' exit the browser '''
     def quit(self):
-        self.driver.quit()
+        try:
+            self.driver.quit()
+        except:
+            raise BrowserDeathError
