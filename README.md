@@ -1,5 +1,7 @@
 selenate
 ========
+[![Latest Version](https://pypip.in/v/selenate/badge.png)](https://pypi.python.org/pypi/selenate/)
+[![Downloads](https://pypip.in/d/selenate/badge.png)](https://pypi.python.org/pypi/selenate/)
 
 Web Automation made easy, built around Selenium
 
