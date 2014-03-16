@@ -4,27 +4,46 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.proxy import *
 from selenium.webdriver.common.keys import Keys
-from .exceptions import StartSeleniumError, BrowserDeathError
+
+import socket
+from os import path
+import subprocess
+from .exceptions import SeleniumServerError, BrowserDeathError
 from urllib2 import URLError
+
+class _Selenium():
+    def __init__(self, server):
+        self.selenium = subprocess.Popen(["java", "-jar", server])
+        import time
+        time.sleep(1) # There has to be aa better way!
+    
+    def kill(self):
+        self.selenium.terminate()
+        if not self.selenium.poll:
+            self.selenium.kill()
 
 class Selenate():
     ''' Initiate a Selenate Object which is secretly a selenium object, A proxy
     can be supplied if so desired otherwise will run locally. Also unless 
     specified Selenate will be a firefox browser.'''
-    def __init__(self, host="127.0.0.1"):
-            proxy = Proxy({
-                'proxyType': ProxyType.MANUAL,
-                'httpProxy': host,
-                'ftpProxy': host,
-                'sslProxy': host,
-                'noProxy': host 
-            })
-            caps = webdriver.DesiredCapabilities.FIREFOX
-            proxy.add_to_capabilities(caps)
-            try:
-                self.driver = webdriver.Remote(desired_capabilities=caps)
-            except URLError:
-                raise StartSeleniumError
+    def __init__(self, host="127.0.0.1", server="./selenium-server.jar"):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        port = sock.connect_ex(("127.0.0.1", 4444)) == 0
+        if server and path.isfile(server) and not port:
+            self.selenium = _Selenium(server)
+        proxy = Proxy({
+            'proxyType': ProxyType.MANUAL,
+            'httpProxy': host,
+            'ftpProxy': host,
+            'sslProxy': host,
+            'noProxy': host 
+        })
+        caps = webdriver.DesiredCapabilities.FIREFOX
+        proxy.add_to_capabilities(caps)
+        try:
+            self.driver = webdriver.Remote(desired_capabilities=caps)
+        except URLError:
+            raise SeleniumServerError
 
     ''' find an element by a variety of locators, using the format
     "type=locator" (ie "id=some_identifier") ''' 
@@ -65,3 +84,5 @@ class Selenate():
             self.driver.quit()
         except:
             raise BrowserDeathError
+        if hasattr(self, "selenium"):
+            self.selenium.kill()
