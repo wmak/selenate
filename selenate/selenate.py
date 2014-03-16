@@ -56,6 +56,7 @@ class Selenate():
             locator_value = locator[locator.find("=") + 1:]
         else:
             locator_type = 'css'
+            locator_value = locator
 
         if locator_type == 'class':
             return self.driver.find_element_by_class_name(locator_value)
