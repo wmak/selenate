@@ -11,6 +11,8 @@ import subprocess
 from .exceptions import SeleniumServerError, BrowserDeathError
 from urllib2 import URLError
 
+import pydoc
+
 class _Selenium():
     def __init__(self, server):
         self.selenium = subprocess.Popen(["java", "-jar", server])
@@ -31,6 +33,7 @@ class Selenate():
         port = sock.connect_ex(("127.0.0.1", 4444)) == 0
         if server and path.isfile(server) and not port:
             self.selenium = _Selenium(server)
+
         proxy = Proxy({
             'proxyType': ProxyType.MANUAL,
             'httpProxy': host,
@@ -48,8 +51,12 @@ class Selenate():
     ''' find an element by a variety of locators, using the format
     "type=locator" (ie "id=some_identifier") ''' 
     def find_element_by_locator(self, locator):
-        locator_type = locator[:locator.find("=")].lower()
-        locator_value = locator[locator.find("=") + 1:]
+        if "=" in locator:
+            locator_type = locator[:locator.find("=")].lower()
+            locator_value = locator[locator.find("=") + 1:]
+        else:
+            locator_type = 'css'
+
         if locator_type == 'class':
             return self.driver.find_element_by_class_name(locator_value)
         elif locator_type == 'css':
