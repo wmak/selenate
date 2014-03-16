@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.proxy import *
+from selenium.webdriver.common.proxy import Proxy, ProxyType 
 from selenium.webdriver.common.keys import Keys
 
 import socket
@@ -17,7 +17,7 @@ class _Selenium():
     def __init__(self, server):
         self.selenium = subprocess.Popen(["java", "-jar", server])
         import time
-        time.sleep(1) # There has to be aa better way!
+        time.sleep(1) # There has to be a better way!
     
     def kill(self):
         self.selenium.terminate()
