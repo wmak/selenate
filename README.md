@@ -21,7 +21,8 @@ pip install selenate
 Here's some basic code to start a browser and navigate a little bit
 ```python
 from selenate import Selenate
-browser = Selenate()
-browser.get("https://github.com/wmak/selenate")
-browser.click(".mega-octicon")
+
+browser = Selenate() # start your browser
+browser.get("https://github.com/wmak/selenate") # go to this url
+browser.click(".mega-octicon") # click on this css element
 ```
