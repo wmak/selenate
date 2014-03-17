@@ -48,7 +48,7 @@ class Selenate():
         except URLError:
             raise SeleniumServerError
 
-    ''' find an element by a variety of locators, using the format
+    ''' Find an element by a variety of locators, using the format
     "type=locator" (ie "id=some_identifier") ''' 
     def find_element_by_locator(self, locator):
         if "=" in locator:
@@ -67,26 +67,26 @@ class Selenate():
         else:
             return "Unkown locator type"
 
-    ''' have the browser go to some url '''
+    ''' Have the browser go to some url '''
     def get(self, link):
         self.driver.get(link)
 
-    ''' wait for a locator to be displayed before continuing, or timeout if this
+    ''' Wait for a locator to be displayed before continuing, or timeout if this
     takes more than timeout seconds '''
     def wait_for(self, locator, timeout=10):
         w = WebDriverWait(self.driver, timeout)
         w.until(lambda driver: 
                 self.driver.find_element_by_locator(locator).is_displayed())
 
-    ''' click on an element identified by locator on the page '''
+    ''' Click on an element identified by locator on the page '''
     def click(self, locator):
         self.find_element_by_locator(locator).click()
 
-    ''' type text into a locator '''
+    ''' Type text into a locator '''
     def type_to(self, locator, text):
         self.find_element_by_locator(locator).send_keys(text)
 
-    ''' exit the browser '''
+    ''' Exit the browser '''
     def quit(self):
         try:
             self.driver.quit()
