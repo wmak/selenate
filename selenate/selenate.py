@@ -19,20 +19,23 @@ class _Selenium():
             self.selenium = subprocess.Popen(["java", "-jar", server],
                 stdout=fnull, stderr=fnull)
         import time
-        time.sleep(1) # There has to be a better way!
-    
+        time.sleep(2) # There has to be a better way!
+
     def kill(self):
         self.selenium.terminate()
-        if not self.selenium.poll:
-            self.selenium.kill()
+        self.selenium.kill()
 
 class Selenate():
     ''' Initiate a Selenate Object which is secretly a selenium object, A proxy
     can be supplied if so desired otherwise will run locally. Also unless 
     specified Selenate will be a firefox browser.'''
     def __init__(self, host="127.0.0.1", server="./selenium-server.jar"):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        port = sock.connect_ex(("127.0.0.1", 4444)) == 0
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            port = sock.connect_ex(("127.0.0.1", 4444)) == 0
+        except:
+            port = True # Assume it's started if sock errors out
+
         if server and path.isfile(server) and not port:
             self.selenium = _Selenium(server)
 
