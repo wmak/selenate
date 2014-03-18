@@ -6,7 +6,7 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 from selenium.webdriver.common.keys import Keys
 
 import socket
-from os import path
+from os import path, devnull
 import subprocess
 from .exceptions import SeleniumServerError, BrowserDeathError
 from urllib2 import URLError
@@ -15,7 +15,9 @@ import pydoc
 
 class _Selenium():
     def __init__(self, server):
-        self.selenium = subprocess.Popen(["java", "-jar", server])
+        with open(devnull, "w") as fnull:
+            self.selenium = subprocess.Popen(["java", "-jar", server],
+                stdout=fnull, stderr=fnull)
         import time
         time.sleep(1) # There has to be a better way!
     
