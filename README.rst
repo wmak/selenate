@@ -16,7 +16,7 @@ Setting up
 
 .. _firefox: http://www.mozilla.org/en-GB/firefox/new/
 
-2. Download the latest selenium server look for the latest version number directory and find a file selenium-server-standalone-x.xx.x.jar) and save it as selenium-server_.jar
+2. Download the latest selenium server look for the latest version number directory, and find a file selenium-server-standalone-x.xx.x.jar and save it as selenium-server_.jar
 
 .. _selenium-server: http://selenium-release.storage.googleapis.com/index.html
 
