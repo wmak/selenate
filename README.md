@@ -17,6 +17,9 @@ Web Automation made easy, built around Selenium
 pip install selenate
 ```
 
+## Documentation
+Documentation is available at [Read The Docs](http://selenate.readthedocs.org/en/latest/)
+
 ## Coding
 Here's some basic code to start a browser and navigate a little bit
 ```python
