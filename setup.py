@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="selenate",
-    version="0.1.3",
+    version="0.2.0dev",
     author="William Mak",
     url="https://github.com/wmak/selenate",
     packages=find_packages(exclude=['*.tests']),
