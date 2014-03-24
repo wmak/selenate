@@ -2,10 +2,10 @@ selenate
 ========
 
 .. image:: https://pypip.in/v/selenate/badge.png
-    :target: http://pypi.python.or/pypi/selenate/
+    :target: http://pypi.python.org/pypi/selenate/
 
 .. image:: https://pypip.in/d/selenate/badge.png
-    :target: http://pypi.python.or/pypi/selenate/
+    :target: http://pypi.python.org/pypi/selenate/
 
 
 Web Automation made easy, built around Selenium
