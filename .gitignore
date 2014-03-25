@@ -43,3 +43,6 @@ venv
 
 # Sphinx
 docs/_build
+
+# Selenium server
+selenium-server.jar
