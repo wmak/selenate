@@ -26,6 +26,10 @@ Setting up
 
     $ pip install selenate
 
+4. Install the Java Runtime Environment if you have not already, instructions to do so are here_. It's also very likely that your package manager can also install it for you.
+
+.. _here: http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
 Documentation
 -------------
 Documentation is available at readthedocs_
