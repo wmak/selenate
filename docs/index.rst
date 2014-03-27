@@ -34,9 +34,7 @@ Example
 
 Documentation
 ==================
+.. toctree::
+    :maxdepth: 2
 
-* :ref:`test`
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+    setup/intro
