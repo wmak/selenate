@@ -45,4 +45,4 @@ Here's some basic code to start a browser and navigate a little bit
     from selenate import Selenate
     browser = Selenate() # start your browser
     browser.get("https://github.com/wmak/selenate") # go to this url
-    browser.click(".mega-octicon") # click on this css elemen
+    browser.click(".mega-octicon") # click on this css element
