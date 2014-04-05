@@ -17,6 +17,11 @@ similarily follows as
 
     pip install -U selenium
 
+Browser
+======
+Currently selenate only supports firefox so make sure that you have the most
+ recent version installed
+
 Selenium Server
 ===============
 Selenium requires there to be a Selenium Server running in order to interact
