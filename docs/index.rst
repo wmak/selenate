@@ -35,6 +35,7 @@ Example
 Documentation
 ==================
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
     getting_started/intro
+    getting_started/selenate
