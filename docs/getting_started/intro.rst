@@ -1,6 +1,4 @@
-.. _intro
-
-Introduction
+Installation
 ============
 Selenate has dependencies on selenium, so at this point you should have
 installed selenate which in turn would have installed selenium. But if you
@@ -18,7 +16,7 @@ similarily follows as
     pip install -U selenium
 
 Browser
-======
+=======
 Currently selenate only supports firefox so make sure that you have the most 
 recent version installed
 
@@ -45,8 +43,8 @@ Now normally you would have to start the selenium server with something like:
     java -jar selenium-server.jar
 
 and you should try running this regardless to check that everything is working.
-But Selenate will handle starting and stoppind this whenever you run a script,
-this is done in the declaration of the Selenate object
+Though for future runs Selenate will handle starting and stoppind this whenever 
+you run a script, this is done in the declaration of the Selenate object
 
 .. code-block:: python
 
