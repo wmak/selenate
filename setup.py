@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name="selenate",
-    version="0.2.0",
+    version="0.3.0",
     author="William Mak",
     author_email="WilliamSYMak@gmail.com",
     url="https://github.com/wmak/selenate",

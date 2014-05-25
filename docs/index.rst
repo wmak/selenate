@@ -11,7 +11,7 @@ Selenate is a python wrapper around the Selenium Python Client Driver. It's main
 goal is to simplify the management of selenium server, and as well provide easy
 to use functions.
 
-Currently Selenate is in version 0.2 and has much of the preliminary ground work
+Currently Selenate is in version 0.3 and has much of the preliminary ground work
 complete and should be sufficiently usable, but is still missing neccesary
 functionality.
 

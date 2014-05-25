@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.action_chains import ActionChains
@@ -8,7 +9,7 @@ from selenium.webdriver.common.keys import Keys
 import socket
 from os import path, devnull
 import subprocess
-from .exceptions import SeleniumServerError, BrowserDeathError
+from .exceptions import SeleniumServerError, BrowserDeathError, NonFormError
 from urllib2 import URLError
 
 import pydoc
@@ -30,7 +31,7 @@ class Selenate():
     can be supplied if so desired otherwise will run locally. Also unless 
     specified Selenate will be a firefox browser.'''
     def __init__(self, host="127.0.0.1", server="./selenium-server.jar"):
-        try:
+        try: # check if the selenium server has been started locally
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             port = sock.connect_ex(("127.0.0.1", 4444)) == 0
         except:
@@ -56,21 +57,7 @@ class Selenate():
     ''' Find an element by a variety of locators, using the format
     "type=locator" (ie "id=some_identifier") ''' 
     def find_element_by_locator(self, locator):
-        if "=" in locator:
-            locator_type = locator[:locator.find("=")].lower()
-            locator_value = locator[locator.find("=") + 1:]
-        else:
-            locator_type = 'css'
-            locator_value = locator
-
-        if locator_type == 'class':
-            return self.driver.find_element_by_class_name(locator_value)
-        elif locator_type == 'css':
-            return self.driver.find_element_by_css_selector(locator_value)
-        elif locator_type == 'id':
-            return self.driver.find_element_by_id(locator_value)
-        else:
-            return "Unkown locator type"
+        return SelenateElement(self.driver, locator)
 
     ''' Have the browser go to some url '''
     def get(self, link):
@@ -87,10 +74,6 @@ class Selenate():
     def click(self, locator):
         self.find_element_by_locator(locator).click()
 
-    ''' Type text into a locator '''
-    def type_to(self, locator, text):
-        self.find_element_by_locator(locator).send_keys(text)
-
     ''' Exit the browser '''
     def quit(self):
         try:
@@ -99,3 +82,77 @@ class Selenate():
             raise BrowserDeathError
         if hasattr(self, "selenium"):
             self.selenium.kill()
+
+class SelenateElement():
+    def __init__(self, driver, locator):
+        if "=" in locator:
+            locator_type = locator[:locator.find("=")].lower()
+            locator_value = locator[locator.find("=") + 1:]
+        else:
+            locator_type = 'css'
+            locator_value = locator
+
+        if locator_type == 'class':
+            self.element = driver.find_element_by_class_name(locator_value)
+        elif locator_type == 'css':
+            self.element = driver.find_element_by_css_selector(locator_value)
+        elif locator_type == 'id':
+            self.element = driver.find_element_by_id(locator_value)
+        else:
+            raise "Unkown locator type"
+
+    def attribute(self, value):
+        return self.element.get_attribute(value)
+    
+    def click(self):
+        self.element.click()
+
+    def css(self, value):
+        return self.element.value_of_css_property(value)
+
+    @property
+    def displayed(self):
+        return self.element.is_displayed()
+
+    @property
+    def enabled(self):
+        return self.element.is_enabled()
+
+    @property
+    def id(self):
+        return self.element.id
+
+    @property
+    def location(self):
+        return self.element.location
+
+    @property
+    def scrolled_location(self):
+        location = self.element.location_once_scrolled_into_view
+        return {"x" : location.get("x"), "y" : location.get("y")}
+
+    @property
+    def size(self):
+        return self.element.size
+
+    @property
+    def selected(self):
+        return self.element.is_selected()
+
+    def submit(self):
+        try:
+            self.element.submit()
+        except NoSuchElementException:
+            raise NonFormError
+
+    @property
+    def tag(self):
+        return self.element.tag_name
+
+    @property
+    def text(self):
+        return self.element.text
+
+    @text.setter
+    def text(self, value):
+        self.element.send_keys(value)

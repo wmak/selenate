@@ -8,3 +8,7 @@ class SeleniumServerError(SelenateException):
 class BrowserDeathError(SelenateException):
     def __init__(self):
         self.msg = "The browser died before you could complete that action"
+
+class NonFormError(SelenateException):
+    def __init__(self):
+        self.msg = "Element was not in a form so couldn't submit"

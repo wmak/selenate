@@ -50,11 +50,6 @@ you run a script, this is done in the declaration of the Selenate object
 
     browser = Selenate()
 
-Currently in version 0.2.0 of selenate there is an occasional bug that will
-cause the selenium server to keep running even after a script is completed, in
-this case you will want to find the process and kill it yourself. This will be
-fixed by the next version.
-
 Selenate
 ========
 
