@@ -12,3 +12,7 @@ class BrowserDeathError(SelenateException):
 class NonFormError(SelenateException):
     def __init__(self):
         self.msg = "Element was not in a form so couldn't submit"
+
+class UnknownLocatorError(SelenateException):
+    def __init__(self):
+        self.msg = "Unknown locator type"
