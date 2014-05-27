@@ -28,7 +28,7 @@ class SelenateElement():
         return self.element.value_of_css_property(value)
 
     @property
-    def displayed(self):
+    def visible(self):
         return self.element.is_displayed()
 
     @property
