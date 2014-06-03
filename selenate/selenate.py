@@ -69,22 +69,39 @@ class Selenate():
     ''' Find an element by a variety of locators, using the format
     "type=locator" (ie "id=some_identifier") ''' 
     def find_element_by_locator(self, locator):
+        try:
+            element = SelenateElement(self.driver, locator)
+        except Exception as e:
+            self.quit()
+            raise e
         return SelenateElement(self.driver, locator)
 
     ''' Have the browser go to some url '''
     def get(self, link):
-        self.driver.get(link)
+        try:
+            self.driver.get(link)
+        except Exception as e:
+            self.quit()
+            raise e
 
     ''' Wait for a locator to be displayed before continuing, or timeout if this
     takes more than timeout seconds '''
     def wait_for(self, locator, timeout=10):
-        w = WebDriverWait(self.driver, timeout)
-        w.until(lambda driver: 
-            self.driver.find_element_by_locator(locator).is_displayed())
+        try:
+            w = WebDriverWait(self.driver, timeout)
+            w.until(lambda driver: 
+                self.driver.find_element_by_locator(locator).is_displayed())
+        except Exception as e:
+            self.quit()
+            raise e
 
     ''' Click on an element identified by locator on the page '''
     def click(self, locator):
-        self.find_element_by_locator(locator).click()
+        try:
+            self.find_element_by_locator(locator).click()
+        except Exception as e:
+            self.quit()
+            raise e
 
     ''' Exit the browser '''
     def quit(self):
