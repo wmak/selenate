@@ -27,7 +27,7 @@ Example
     
     from selenate import Selenate
     browser = Selenate() # Start the selenium server, and launch firefox
-    browser.get("http://www.google.com") # Load page
+    browser.get("http://www.google.com") # Tell firefox to goto google.com
     browser.type_to("#gbqfq", "selenate\n") # Locate the css locator, and type
     browser.quit() # close the browser, and end the selenium server
 
