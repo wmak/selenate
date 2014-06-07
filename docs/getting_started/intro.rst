@@ -96,7 +96,8 @@ classmethod *Selenate*. **find_element_by_locator** (locator)
     locator is a string in the format "type=locator" where type is one of the
     following: 'css', 'class' or 'id'. locator may also just be a css
     identifier. This function will return an object of the Selenate Element
-    class.
+    class. The use of this class is explained in the Selenate Element
+    Documentation
     For example:
 
     .. code-block:: python
