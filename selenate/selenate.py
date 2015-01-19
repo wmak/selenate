@@ -12,6 +12,7 @@ import subprocess
 
 from .exceptions import SeleniumServerError, BrowserDeathError
 from .elements import SelenateElement
+from .urls import SelenateUrl
 
 from urllib2 import URLError
 import time
@@ -74,15 +75,17 @@ class Selenate():
         except Exception as e:
             self.quit()
             raise e
-        return SelenateElement(self.driver, locator)
+        return element
 
     ''' Have the browser go to some url '''
     def get(self, link):
         try:
             self.driver.get(link)
+            url = SelenateUrl(self.driver)
         except Exception as e:
             self.quit()
             raise e
+        return url
 
     ''' Wait for a locator to be displayed before continuing, or timeout if this
     takes more than timeout seconds '''
@@ -102,6 +105,16 @@ class Selenate():
         except Exception as e:
             self.quit()
             raise e
+
+    ''' take a screenshot '''
+    def screenshot(self, filename = "", base64 = False):
+        if filename:
+            self.driver.get_screenshot_as_file(filename)
+        else:
+            if not base64:
+                return self.driver.get_screenshot_as_png()
+            else:
+                return self.driver.get_screenshot_as_base64
 
     ''' Exit the browser '''
     def quit(self):
