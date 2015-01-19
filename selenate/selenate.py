@@ -114,7 +114,7 @@ class Selenate():
             if not base64:
                 return self.driver.get_screenshot_as_png()
             else:
-                return self.driver.get_screenshot_as_base64
+                return self.driver.get_screenshot_as_base64()
 
     ''' Exit the browser '''
     def quit(self):
