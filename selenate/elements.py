@@ -1,13 +1,16 @@
 from .exceptions import UnknownLocatorError, NonFormError
 
 class SelenateElement():
-    def __init__(self, driver, locator):
+    def __init__(self, driver, locator, element = None):
         if "=" in locator:
             locator_type = locator[:locator.find("=")].lower()
             locator_value = locator[locator.find("=") + 1:]
         else:
             locator_type = 'css'
             locator_value = locator
+
+        if element:
+            self.element = element
 
         if locator_type == 'class':
             self.element = driver.find_element_by_class_name(locator_value)
@@ -20,7 +23,6 @@ class SelenateElement():
 
     def attribute(self, value):
         return self.element.get_attribute(value)
-    
     def click(self):
         self.element.click()
 
@@ -73,3 +75,4 @@ class SelenateElement():
     @text.setter
     def text(self, value):
         self.element.send_keys(value)
+

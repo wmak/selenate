@@ -76,6 +76,33 @@ class Selenate():
             raise e
         return SelenateElement(self.driver, locator)
 
+    ''' Find several elements by a variety of locators, using the format
+    "type=locator" (ie "id=some_identifier") ''' 
+    def find_elements_by_locator(self, locator):
+        elements = []
+        try:
+            if "=" in locator:
+                locator_type = locator[:locator.find("=")].lower()
+                locator_value = locator[locator.find("=") + 1:]
+            else:
+                locator_type = 'css'
+                locator_value = locator
+
+            if locator_type == 'class':
+                _elements = self.driver.find_elements_by_class_name(locator_value)
+            elif locator_type == 'css':
+                _elements = self.driver.find_elements_by_css_selector(locator_value)
+            elif locator_type == 'id':
+                _elements = self.driver.find_elements_by_id(locator_value)
+            else:
+                raise UnknownLocatorError
+            for element in _elements:
+                elements.append(SelenateElement(self.driver, locator, element))
+        except Exception as e:
+            self.quit()
+            raise e
+        return elements
+
     ''' Have the browser go to some url '''
     def get(self, link):
         try:
