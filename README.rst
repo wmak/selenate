@@ -1,10 +1,10 @@
 selenate
 ========
 
-.. image:: https://pypip.in/v/selenate/badge.png
+.. image:: https://img.shields.io/pypi/v/selenate.svg
     :target: http://pypi.python.org/pypi/selenate/
 
-.. image:: https://pypip.in/d/selenate/badge.png
+.. image:: https://img.shields.io/pypi/dm/selenate.svg
     :target: http://pypi.python.org/pypi/selenate/
 
 
